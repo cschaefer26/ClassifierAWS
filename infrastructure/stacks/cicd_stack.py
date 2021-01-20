@@ -49,7 +49,7 @@ class CiCdStack(core.Stack):
                 actions.BitBucketSourceAction(
                     connection_arn=github_connection_arn,
                     owner='cschaefer26',
-                    repo='ClassifierPipeline',
+                    repo='ClassifierAWS',
                     action_name='SourceCodeRepo',
                     branch='main',
                     output=source_output,
