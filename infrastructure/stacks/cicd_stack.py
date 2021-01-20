@@ -71,7 +71,7 @@ class CiCdStack(core.Stack):
             },
             timeout=core.Duration.minutes(15),
             cache=build.Cache.bucket(artifact_bucket, prefix=f'codebuild-cache'),
-            build_spec=build.BuildSpec.from_source_filename('Classifier/buildspec.yml'),
+            build_spec=build.BuildSpec.from_source_filename('buildspec.yml'),
         )
 
         build_project.add_to_role_policy(iam.PolicyStatement(
