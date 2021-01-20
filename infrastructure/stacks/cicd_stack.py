@@ -51,7 +51,7 @@ class CiCdStack(core.Stack):
                     owner='cschaefer26',
                     repo='ClassifierAWS',
                     action_name='SourceCodeRepo',
-                    branch='main',
+                    branch='master',
                     output=source_output,
                 )
             ])
