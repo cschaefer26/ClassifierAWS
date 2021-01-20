@@ -1,0 +1,5 @@
+pytest
+pyyaml
+sklearn
+flask
+boto3

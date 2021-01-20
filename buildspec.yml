@@ -1,0 +1,48 @@
+version: 0.2
+
+env:
+  shell: bash
+  variables:
+    DOCKER_FILE_NAME: 'Dockerfile'
+    CONTAINER_TO_RELEASE_NAME: 'classifier'
+    REPOSITORY_URI: 'provided-by-server-environment'
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  pre_build:
+    commands:
+      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - echo Target Docker image tag - $TAG
+      - $(aws ecr get-login --no-include-email)
+      - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+      - echo Target Docker image URI - $IMAGE_URI
+  build:
+    commands:
+      - echo "Starting Docker build `date` in `pwd`"
+      - docker build -t $IMAGE_URI -f $DOCKER_FILE_NAME .
+      - echo "Running tests...."
+      - docker run -v "$(pwd)/infrastructure/scripts:/scripts" -v "$(pwd)/build:/build" --entrypoint="/scripts/run_tests_inside_container.sh" $IMAGE_URI classifier/tests /build/reports/junit-report.xml
+      - docker tag $IMAGE_URI $REPOSITORY_URI:latest
+  post_build:
+    commands:
+      - echo "Pushing to repo uri $REPOSITORY_URI"
+      - docker push "${REPOSITORY_URI}:latest"
+      - echo "Pushing to image uri $IMAGE_URI"
+      - docker push "$IMAGE_URI"
+      - printf '[{"name":"%s","imageUri":"%s"}]' "$CONTAINER_TO_RELEASE_NAME" "$IMAGE_URI" > imagedefinitions.json
+      - echo "--------BUILD DONE.--------"
+
+artifacts:
+  files:
+    - 'imagedefinitions.json'
+  discard-paths: 'yes'
+
+reports:
+  classifier_service:
+    files:
+      - 'build/reports/junit-report.xml'
+cache:
+  paths:
+    - '/root/.cache/pip'
