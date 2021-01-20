@@ -1,7 +1,7 @@
 import time
 import os
 import boto3
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 import os
 import time
@@ -18,9 +18,11 @@ app = Flask(__name__)
 
 @app.route('/classify', methods=['GET'])
 def classify():
-    string = request.args.get('string')
-    app.logger.info(f'Processing phon request with string: {string}')
+    string = request.args.get('text')
+    app.logger.info(f'Processing classification request with string: {string}')
     result = classifier(string)
+    result = jsonify(result)
+    return result
 
 @app.route('/', methods=['GET'])
 def health():
@@ -40,5 +42,9 @@ if __name__ == '__main__':
     logger.info(f'Downloading model from bucket: {model_bucket_name}')
     with open('classifier.pkl', 'wb') as f:
         s3_client.download_fileobj(model_bucket_name, 'classifier.pkl', f)
-
     classifier = TextClassifier.load('classifier.pkl')
+
+    port = 80
+    logger.info(f'Running flask app on port {port}!')
+    app.run(host="0.0.0.0", port=port)
+

@@ -8,11 +8,10 @@ from stacks.cicd_stack import CiCdStack
 from stacks.networking_stack import NetworkingStack
 from stacks.serving_stack import ServingStack
 
-shared_context = {'topic_name': 'classifier-serving-topic',
-                  'result_bucket_name': 'classifier-serving-result-bucket',
-                  'model_bucket_name': 'classifier-serving-model-bucket',
+shared_context = {'model_bucket_name': 'classifier-serving-model-bucket',
                   'aws_region': 'eu-central-1',
                   'aws_account': '***REMOVED***',
+                  'port': 80,
                   'github_connection_arn': 'arn:aws:codestar-connections:eu-central-1:***REMOVED***:connection/98ebc764-190a-41f7-bed0-692237072a5f'}
 
 cdk_environment = core.Environment(
@@ -33,10 +32,7 @@ serving = ServingStack(app,
                        vpc=networking.vpc,
                        repository=cicd.ecr_repository,
                        env=cdk_environment,
-                       shared_context=shared_context,
-                       command=[])
+                       shared_context=shared_context)
 
-
-app.synth()
 
 app.synth()
