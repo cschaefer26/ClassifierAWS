@@ -19,6 +19,7 @@ WORKDIR /app
 COPY classifier classifier
 COPY app_runner.py .
 COPY logging-config.yaml .
+COPY templates .
 
 EXPOSE 80
 

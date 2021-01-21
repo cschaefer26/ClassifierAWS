@@ -1,7 +1,7 @@
 import time
 import os
 import boto3
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
 import os
 import time
@@ -16,6 +16,23 @@ from classifier.model import TextClassifier
 app = Flask(__name__)
 
 
+@app.route('/classify')
+def my_form():
+    return render_template('form_template.html', classifier_result={})
+
+
+@app.route('/classify', methods=['POST'])
+def my_form_post():
+    text = request.form['text']
+    app.logger.info(f'Processing classification request with text: {text}')
+    result = classifier(text)
+    #result = jsonify(result)
+    #classes = sorted(list(result.keys()), key=result.get, reverse=True)
+    #result_string = ''.join([f'{c}: {result[c]}\n' for c in classes])
+    return render_template('form_template.html', classifier_result=result)
+
+
+"""
 @app.route('/classify', methods=['GET'])
 def classify():
     string = request.args.get('text')
@@ -23,10 +40,12 @@ def classify():
     result = classifier(string)
     result = jsonify(result)
     return result
+"""
 
 @app.route('/', methods=['GET'])
 def health():
     return 'healthy.'
+
 
 
 if __name__ == '__main__':
