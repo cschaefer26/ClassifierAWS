@@ -17,9 +17,9 @@ COPY --from=builder /install /usr/local
 RUN mkdir /app
 WORKDIR /app
 COPY classifier classifier
+COPY templates templates
 COPY app_runner.py .
 COPY logging-config.yaml .
-COPY templates .
 
 EXPOSE 80
 
