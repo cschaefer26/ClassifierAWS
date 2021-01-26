@@ -38,6 +38,16 @@ PYTHONPATH=. python  classifier/train.py
 The model will be saved under /tmp/classifier.pkl. When you trigger the deployment the pipeline will look for the model in the S3 bucket specified in the `shared_context` in the file `infrastructure/app.py`, thus you need to upload it there first.
  Create a new bucket in the [AWS S3 console](https://s3.console.aws.amazon.com/s3) with the name `classifier-serving-model-bucket` and upload the classifier to the bucket.
 
+
+Go to `infrastructure`, create a virtual environment and install the dependencies:
+
+```
+cd infrastructure
+python -m venv .env
+pip install -r requirements.txt
+```
+
+
 Synthesize and deploy the CloudFormation template:
 ```
 cd infrastructure
