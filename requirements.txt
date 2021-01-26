@@ -1,5 +1,5 @@
 pytest
 pyyaml
-scikit-learn
+sklearn
 flask
 boto3
