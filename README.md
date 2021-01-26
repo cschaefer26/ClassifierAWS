@@ -9,6 +9,7 @@ Create a virtual environment and install the dependencies:
 
 ```
 python -m venv .env
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -44,6 +45,7 @@ Go to `infrastructure`, create a virtual environment and install the dependencie
 ```
 cd infrastructure
 python -m venv .env
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
