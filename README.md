@@ -8,7 +8,7 @@ using the AWS Cloud Development Kit (CDK).
 Create a virtual environment and install the dependencies:
 
 ```
-python3 -m venv .env
+python -m venv .env
 pip install -r requirements.txt
 ```
 
