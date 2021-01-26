@@ -5,14 +5,14 @@ using the AWS Cloud Development Kit (CDK).
 
 # Installation
 
-Create a virtual environment and install the dependencies
+Create a virtual environment and install the dependencies:
 
 ```
 python3 -m venv .env
 pip install -r requirements.txt
 ```
 
-You can test the installation by running
+You can test the installation by running:
 
 ```
 PYTHONPATH=. pytest classifier/tests
@@ -30,7 +30,7 @@ to clone your fork of this repo. The connection has a uniqe id (ARN).
 
 # Deployment
 
-Train a valid classifier
+Train a valid classifier:
 
 ```
 PYTHONPATH=. python  classifier/train.py
