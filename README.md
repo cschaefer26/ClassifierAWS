@@ -46,5 +46,4 @@ cdk deploy classifier-cicd-stack, classifier-networking-stack, classifier-servin
 ```
 
 Once the deployment is finished you can go to the AWS console and verify that the CodePipeline build went through. Logs are under CloudWatch/insights.
-The classifier will is exposed to the internat via a LoadBalancer, whose DNS you can under the [EC2 service](https://eu-central-1.console.aws.amazon.com/ec2): Go to  
-`LoadBalancers` and click on the running instance, the DNS will be displayed there. If you copy+paste the DNS address into your browser the input text field for the classifier should be displayed.
+The classifier will is exposed to the internat via a LoadBalancer, whose DNS you can under the [EC2 service](https://eu-central-1.console.aws.amazon.com/ec2): Go to   `LoadBalancers` and click on the running instance, the DNS will be displayed there. If you copy+paste the DNS address into your browser the input text field for the classifier should be displayed.
