@@ -1,7 +1,7 @@
 # Classifier AWS Deployment
 
-This is a minimal implementation of a text classifier containing the code-infrastructure for deploying it to 
-to the AWS cloud CDK.
+This is a minimal implementation of a pipeline that deploys a simple text classifier into the AWS cloud 
+using the AWS Cloud Development Kit (CDK).
 
 # Installation
 
