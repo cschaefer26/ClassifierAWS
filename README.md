@@ -54,7 +54,7 @@ Synthesize and deploy the CloudFormation template:
 ```
 cd infrastructure
 cdk synth
-cdk deploy classifier-cicd-stack, classifier-networking-stack, classifier-serving-stack
+cdk deploy classifier-cicd-stack classifier-networking-stack classifier-serving-stack
 ```
 
 Once the deployment is finished you can go to the AWS console and verify that the CodePipeline build went through. Logs are under CloudWatch/insights.
@@ -63,5 +63,5 @@ The classifier will is exposed to the internat via a LoadBalancer, whose DNS you
 Make sure you destroy the resources once you don't need them anymore:
 
 ```
-cdk destroy classifier-cicd-stack, classifier-networking-stack, classifier-serving-stack
+cdk destroy classifier-cicd-stack classifier-networking-stack classifier-serving-stack
 ```
