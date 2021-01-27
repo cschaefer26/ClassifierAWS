@@ -25,7 +25,7 @@ if __name__ == '__main__':
                                      pipeline=classifier_pipe)
     text_classifier.save('/tmp/classifier.pkl')
     text_classifier = TextClassifier.load('/tmp/classifier.pkl')
-    sample_pred = text_classifier('I believe in God and Jesus.')
+    sample_pred = text_classifier('May god bless you.')
     print(f'sample pred: {sample_pred}')
 
 
