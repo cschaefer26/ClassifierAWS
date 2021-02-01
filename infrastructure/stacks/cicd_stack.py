@@ -1,4 +1,3 @@
-import re
 from typing import Dict
 
 from aws_cdk import (
@@ -17,7 +16,7 @@ class CiCdStack(core.Stack):
 
     def __init__(self,
                  scope: core.Construct, id: str,
-                 github_connection_arn: str,
+                 shared_context: Dict[str, str],
                  **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
@@ -47,9 +46,9 @@ class CiCdStack(core.Stack):
             stage_name='GithubSources',
             actions=[
                 actions.BitBucketSourceAction(
-                    connection_arn=github_connection_arn,
-                    owner='cschaefer26',
-                    repo='ClassifierAWS',
+                    connection_arn=shared_context['github_connection_arn'],
+                    owner=shared_context['github_owner'],
+                    repo=shared_context['github_repo'],
                     action_name='SourceCodeRepo',
                     branch='master',
                     output=source_output,

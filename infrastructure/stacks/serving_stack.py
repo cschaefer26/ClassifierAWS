@@ -1,24 +1,18 @@
-import re
-from typing import List, Dict, Any
+from typing import Dict, Any
 
-from aws_cdk.aws_ec2 import Port, Protocol
-from aws_cdk.aws_ecs import PortMapping, HealthCheck
-from aws_cdk.aws_elasticloadbalancingv2 import ApplicationProtocol, IApplicationLoadBalancerTarget
-from aws_cdk.aws_s3 import LifecycleRule
 from aws_cdk import (
     aws_elasticloadbalancingv2 as elb,
-    aws_sqs as sqs,
     aws_iam as iam,
     aws_ecs as ecs,
     aws_logs as logs,
     aws_s3 as s3,
     aws_ec2 as ec2,
     aws_ecr as ecr,
-    aws_ssm as ssm,
-    aws_sns as sns,
-    aws_sns_subscriptions as snss,
     core
 )
+from aws_cdk.aws_ec2 import Port, Protocol
+from aws_cdk.aws_ecs import PortMapping
+from aws_cdk.aws_elasticloadbalancingv2 import ApplicationProtocol
 
 
 class ServingStack(core.Stack):
