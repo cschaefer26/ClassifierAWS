@@ -37,10 +37,6 @@ artifacts:
     - 'imagedefinitions.json'
   discard-paths: 'yes'
 
-reports:
-  classifier_service:
-    files:
-      - 'build/reports/junit-report.xml'
 cache:
   paths:
     - '/root/.cache/pip'
