@@ -22,8 +22,6 @@ phases:
     commands:
       - echo "Starting Docker build `date` in `pwd`"
       - docker build -t $IMAGE_URI -f $DOCKER_FILE_NAME .
-      - echo "Running tests...."
-      - docker run -v "$(pwd)/infrastructure/scripts:/scripts" -v "$(pwd)/build:/build" --entrypoint="/scripts/run_tests_inside_container.sh" $IMAGE_URI classifier/tests /build/reports/junit-report.xml
       - docker tag $IMAGE_URI $REPOSITORY_URI:latest
   post_build:
     commands:
