@@ -22,18 +22,18 @@ templates = Jinja2Templates(directory="templates/")
 
 
 @app.get('/')
-def read_form():
-    return 'hello world'
+def health():
+    return 'healthy.'
 
 
 @app.get("/classify")
-def form_post(request: Request):
+def classify_get(request: Request):
     classifier_result = {}
     return templates.TemplateResponse('form_template.html', context={'request': request, 'classifier_result': classifier_result})
 
 
 @app.post("/classify")
-def form_post(request: Request, text: str = Form(...)):
+def classify_post(request: Request, text: str = Form(...)):
     classifier_result = classifier(text)
     return templates.TemplateResponse('form_template.html', context={'request': request, 'classifier_result': classifier_result})
 
