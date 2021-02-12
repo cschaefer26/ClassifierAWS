@@ -1,5 +1,9 @@
 pytest
 pyyaml
 sklearn
-flask
 boto3
+fastapi
+uvicorn
+python-multipart
+aiofiles
+jinja2
