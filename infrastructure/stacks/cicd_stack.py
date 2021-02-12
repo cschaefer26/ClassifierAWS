@@ -50,7 +50,7 @@ class CiCdStack(core.Stack):
                     owner=shared_context['github_owner'],
                     repo=shared_context['github_repo'],
                     action_name='SourceCodeRepo',
-                    branch='master',
+                    branch='fastapi',
                     output=source_output,
                 )
             ])

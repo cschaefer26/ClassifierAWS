@@ -56,7 +56,6 @@ class ServingStack(core.Stack):
         )
 
         environment = {
-            "AWS_REGION": shared_context['aws_region'],
             'MODEL_BUCKET_NAME': shared_context['model_bucket_name']
         }
 
