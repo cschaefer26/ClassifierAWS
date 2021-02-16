@@ -18,7 +18,7 @@ def download_classifier():
 
 classifier = download_classifier()
 app = FastAPI()
-templates = Jinja2Templates(directory="templates/")
+templates = Jinja2Templates(directory='templates/')
 
 
 @app.get('/')
@@ -26,21 +26,21 @@ def health():
     return 'healthy.'
 
 
-@app.get("/classify")
+@app.get('/classify')
 def classify_get(request: Request):
     classifier_result = {}
     return templates.TemplateResponse('form_template.html', context={'request': request, 'classifier_result': classifier_result})
 
 
-@app.post("/classify")
+@app.post('/classify')
 def classify_post(request: Request, text: str = Form(...)):
     classifier_result = classifier(text)
     return templates.TemplateResponse('form_template.html', context={'request': request, 'classifier_result': classifier_result})
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     logging.basicConfig(format='{levelname:7} {message}', style='{', level=logging.INFO)
     log_config = uvicorn.config.LOGGING_CONFIG
-    log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
-    uvicorn.run(app, host="0.0.0.0", port=80, debug=True, log_config=None)
+    log_config['formatters']['access']['fmt'] = '%(asctime)s - %(levelname)s - %(message)s'
+    uvicorn.run(app, host='0.0.0.0', port=80, debug=True, log_config=None)
 
