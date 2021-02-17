@@ -8,11 +8,11 @@ from stacks.serving_stack import ServingStack
 
 shared_context = {'model_bucket_name': 'classifier-serving-model-bucket',
                   'aws_region': 'eu-central-1',
-                  'aws_account': '793471019388',
+                  'aws_account': 'change-me',
                   'port': 80,
-                  'github_owner': 'cschaefer26',
+                  'github_owner': 'change-me',
                   'github_repo': 'ClassifierAWS',
-                  'github_connection_arn': 'arn:aws:codestar-connections:eu-central-1:793471019388:connection/98ebc764-190a-41f7-bed0-692237072a5f'}
+                  'github_connection_arn': 'change-me'}
 
 cdk_environment = core.Environment(
     region=shared_context['aws_region'],
