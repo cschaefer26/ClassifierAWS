@@ -2,6 +2,14 @@
   "app": ".venv/bin/python app.py",
   "context": {
     "@aws-cdk/core:enableStackNameDuplicates": "true",
-    "aws-cdk:enableDiffNoFail": "true"
+    "aws-cdk:enableDiffNoFail": "true",
+    "shared_context": {
+      "model_bucket_name": "classifier-serving-model-bucket",
+      "aws_region": "eu-central-1",
+      "aws_account": "XXX",
+      "port": 80,
+      "github_owner": "XXX",
+      "github_repo": "ClassifierAWS",
+      "github_connection_arn": "XXX"}
   }
 }
