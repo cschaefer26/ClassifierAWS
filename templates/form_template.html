@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<h3>Text to classify:</h3>
+<h3>Text to Classify:</h3>
 
 <form method="POST">
     <input name="text">
     <input type="submit">
 </form>
 
-<h3>Classifier output:</h3>
+<h3>Classifier Output:</h3>
 <table>
 {% for key, value in classifier_result.items() %}
    <tr>
