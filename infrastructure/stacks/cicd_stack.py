@@ -55,7 +55,11 @@ class CiCdStack(core.Stack):
                 )
             ])
 
-        self.ecr_repository = ecr.Repository(scope=self, id='classifier-ecr-repo')
+        self.ecr_repository = ecr.Repository(scope=self,
+                                             id=f'{id}-ecr-repo',
+                                             repository_name='classifier-ecr-repo',
+                                             removal_policy=core.RemovalPolicy.DESTROY
+                                             )
 
         build_project = build.PipelineProject(
             self,

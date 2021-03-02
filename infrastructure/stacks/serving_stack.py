@@ -8,6 +8,7 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_ec2 as ec2,
     aws_ecr as ecr,
+    aws_ecs_patterns as ecs_patterns,
     core
 )
 from aws_cdk.aws_ec2 import Port, Protocol
@@ -40,7 +41,8 @@ class ServingStack(core.Stack):
 
         self.task_definition = ecs.FargateTaskDefinition(self,
                                                          id=f'{id}-ecs-task-definition',
-                                                         memory_limit_mib=512, cpu=256)
+                                                         memory_limit_mib=shared_context['fargate_memory_limit_mb'],
+                                                         cpu=shared_context['fargate_cpu_units'])
 
         self.task_definition.add_to_task_role_policy(iam.PolicyStatement(
             actions=['s3:getObject'],
@@ -64,38 +66,15 @@ class ServingStack(core.Stack):
                                                            logging=log_driver,
                                                            environment=environment)
 
-        port = shared_context['port']
-
         app_container.add_port_mappings(PortMapping(container_port=shared_context['port'],
                                                     host_port=shared_context['port']))
 
-        self.service = ecs.FargateService(self,
-                                          id=f'{id}-fargate-service',
-                                          assign_public_ip=True,
-                                          cluster=self.ecs_cluster,
-                                          desired_count=1,
-                                          task_definition=self.task_definition)
-
-        load_balancer = elb.ApplicationLoadBalancer(self,
-                                                    id=f'{id}-LoadBalancer',
-                                                    vpc=self.vpc,
-                                                    internet_facing=True)
-
-        load_balancer.connections.allow_from_any_ipv4(Port(protocol=Protocol.TCP,
-                                                           string_representation='load_balancer_tcp_port',
-                                                           from_port=port,
-                                                           to_port=port))
-
-        load_balancer.connections.allow_to_any_ipv4(Port(protocol=Protocol.TCP,
-                                                         string_representation='load_balancer_tcp_port',
-                                                         from_port=port,
-                                                         to_port=port))
-
-        listener = load_balancer.add_listener(id='Listener',
-                                              port=port,
-                                              protocol=ApplicationProtocol.HTTP)
-
-        listener.add_targets(id='ServiceTarget',
-                             port=port,
-                             protocol=ApplicationProtocol.HTTP,
-                             targets=[self.service])
+        self.service = ecs_patterns.ApplicationLoadBalancedFargateService(self,
+                                                                          id=f'{id}-fargate-service',
+                                                                          assign_public_ip=True,
+                                                                          cluster=self.ecs_cluster,
+                                                                          desired_count=1,
+                                                                          task_definition=self.task_definition,
+                                                                          open_listener=True,
+                                                                          listener_port=shared_context['port'],
+                                                                          target_protocol=ApplicationProtocol.HTTP)
