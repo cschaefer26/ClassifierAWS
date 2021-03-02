@@ -55,11 +55,8 @@ class CiCdStack(core.Stack):
                 )
             ])
 
-        self.ecr_repository = ecr.Repository(scope=self,
-                                             id=f'{id}-ecr-repo',
-                                             repository_name='classifier-ecr-repo',
-                                             removal_policy=core.RemovalPolicy.DESTROY
-                                             )
+        self.ecr_repository = ecr.Repository(scope=self,  id=f'{id}-ecr-repo')
+        self.ecr_repository.add_lifecycle_rule(max_image_age=core.Duration.days(7))
 
         build_project = build.PipelineProject(
             self,
