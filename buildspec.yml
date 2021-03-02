@@ -22,7 +22,7 @@ phases:
     commands:
       - echo "Starting Docker build `date` in `pwd`"
       - docker build -t $IMAGE_URI -f $DOCKER_FILE_NAME .
-      - docker run  --entrypoint="./run_tests.sh" classifier
+      - docker run  --entrypoint="./run_tests.sh" $IMAGE_URI
       - docker tag $IMAGE_URI $REPOSITORY_URI:latest
   post_build:
     commands:
