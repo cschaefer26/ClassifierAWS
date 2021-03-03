@@ -25,7 +25,8 @@ class CiCdStack(core.Stack):
         artifact_bucket = s3.Bucket(
             scope=self,
             id=f'{id}-artifacts-bucket',
-            removal_policy=core.RemovalPolicy.RETAIN,
+            removal_policy=core.RemovalPolicy.DELETE,
+            auto_delete_objects=True,
             encryption=s3.BucketEncryption.KMS_MANAGED,
             versioned=False,
             lifecycle_rules=[
