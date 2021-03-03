@@ -23,7 +23,8 @@ class CiCdStack(core.Stack):
         self.pipeline_id = f'{id}-cicd-stack'
 
         artifact_bucket = s3.Bucket(
-            self, id=f'{id}-artifacts-bucket',
+            scope=self,
+            id=f'{id}-artifacts-bucket',
             removal_policy=core.RemovalPolicy.RETAIN,
             encryption=s3.BucketEncryption.KMS_MANAGED,
             versioned=False,
@@ -55,11 +56,12 @@ class CiCdStack(core.Stack):
                 )
             ])
 
-        self.ecr_repository = ecr.Repository(scope=self,  id=f'{id}-ecr-repo')
+        self.ecr_repository = ecr.Repository(scope=self,
+                                             id=f'{id}-ecr-repo')
         self.ecr_repository.add_lifecycle_rule(max_image_age=core.Duration.days(7))
 
         build_project = build.PipelineProject(
-            self,
+            scope=self,
             id=f'{id}-build-project',
             project_name=f'ClassifierBuildProject',
             description=f'Build project for the classifier',
@@ -79,7 +81,8 @@ class CiCdStack(core.Stack):
                 'codebuild:CreateReportGroup',
                 'codebuild:CreateReport',
                 'codebuild:BatchPutTestCases',
-                'codebuild:UpdateReport'
+                'codebuild:UpdateReport',
+                'codebuild:StartBuild'
             ],
             resources=['*']
         ))
