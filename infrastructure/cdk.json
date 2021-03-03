@@ -6,12 +6,12 @@
     "shared_context": {
       "model_bucket_name": "classifier-serving-model-bucket",
       "aws_region": "eu-central-1",
-      "aws_account": "XXX",
+      "aws_account": "***REMOVED***",
       "port": 80,
-      "github_owner": "XXX",
+      "github_owner": "cschaefer26",
       "github_repo": "ClassifierAWS",
       "fargate_memory_limit_mb": 512,
       "fargate_cpu_units": 256,
-      "github_connection_arn": "XXX"}
+      "github_connection_arn": "arn:aws:codestar-connections:eu-central-1:***REMOVED***:connection/98ebc764-190a-41f7-bed0-692237072a5f"}
   }
 }
