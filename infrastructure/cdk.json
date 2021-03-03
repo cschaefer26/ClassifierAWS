@@ -12,6 +12,6 @@
       "github_repo": "ClassifierAWS",
       "fargate_memory_limit_mb": 512,
       "fargate_cpu_units": 256,
-      "github_connection_arn": 'XXX"}
+      "github_connection_arn": "XXX"}
   }
 }
