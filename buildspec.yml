@@ -26,8 +26,6 @@ phases:
       - docker tag $IMAGE_URI $REPOSITORY_URI:latest
   post_build:
     commands:
-      - echo "Pushing to repo uri $REPOSITORY_URI"
-      - docker push "${REPOSITORY_URI}:latest"
       - echo "Pushing to image uri $IMAGE_URI"
       - docker push "$IMAGE_URI"
       - printf '[{"name":"%s","imageUri":"%s"}]' "$CONTAINER_TO_RELEASE_NAME" "$IMAGE_URI" > imagedefinitions.json
